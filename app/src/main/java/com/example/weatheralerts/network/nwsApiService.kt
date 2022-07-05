@@ -2,7 +2,6 @@ package com.example.weatheralerts.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -19,8 +18,8 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface nwsApiService {
-    @GET("alerts/active?area=FL")
-    suspend fun getData(): ResponseBody
+    @GET("alerts/active?area=SD")
+    suspend fun getData(): WeatherAlert
 }
 
 object nwsApi {

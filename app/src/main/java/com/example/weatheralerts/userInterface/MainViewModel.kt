@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weatheralerts.network.WeatherAlert
 import com.example.weatheralerts.network.nwsApi
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
@@ -13,18 +14,13 @@ enum class NwsApiStatus { LOADING, ERROR, DONE }
 
 class MainViewModel : ViewModel() {
 
-    // The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<NwsApiStatus>()
 
-    // The external immutable LiveData for the request status
     val status: LiveData<NwsApiStatus> = _status
 
-    // Internally, we use a MutableLiveData, because we will be updating the List of MarsPhoto
-    // with new values
-    private val _nwsData = MutableLiveData<ResponseBody>()
+    private val _nwsData = MutableLiveData<WeatherAlert>()
 
-    // The external LiveData interface to the property is immutable, so only this class can modify
-    val nwsData: LiveData<ResponseBody> = _nwsData
+    val nwsData: LiveData<WeatherAlert> = _nwsData
 
     fun getNwsData() {
         viewModelScope.launch {

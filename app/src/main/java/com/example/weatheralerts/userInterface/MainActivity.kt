@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.weatheralerts.R
+import com.example.weatheralerts.network.WeatherAlert
 import okhttp3.ResponseBody
 import org.json.JSONObject
 
@@ -18,8 +19,10 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getNwsData()
 
-        val observer = Observer<ResponseBody> {
-            println(it.string())
+        val observer = Observer<WeatherAlert> {
+            println("------------------------------------------------------------------------------------------------------------------------------------------------------------")
+            println(it.features[0].properties?.description)
+            println("------------------------------------------------------------------------------------------------------------------------------------------------------------")
         }
 
         viewModel.nwsData.observe(this, observer)
