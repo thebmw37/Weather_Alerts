@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.weatheralerts.R
 import com.example.weatheralerts.network.WeatherAlert
 import okhttp3.ResponseBody
@@ -20,9 +22,17 @@ class MainActivity : AppCompatActivity() {
         viewModel.getNwsData()
 
         val observer = Observer<WeatherAlert> {
-            println("------------------------------------------------------------------------------------------------------------------------------------------------------------")
-            println(it.features[0].properties?.description)
-            println("------------------------------------------------------------------------------------------------------------------------------------------------------------")
+
+            val alertItems = mutableListOf<AlertItem>()
+
+            for (i in it.features) {
+                val alertItem = AlertItem(i.properties?.event, i.properties?.areaDesc, i.properties?.headline, i.properties?.description, i.properties?.instruction)
+                alertItems.add(alertItem)
+            }
+
+            val alertRecyclerView: RecyclerView = findViewById(R.id.alertRecyclerView)
+            alertRecyclerView.adapter = AlertAdapter(alertItems)
+            alertRecyclerView.layoutManager = LinearLayoutManager(this)
         }
 
         viewModel.nwsData.observe(this, observer)

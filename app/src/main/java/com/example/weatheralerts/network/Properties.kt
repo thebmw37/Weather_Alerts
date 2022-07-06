@@ -26,6 +26,7 @@ data class Properties(
     val senderName: String?,
     val headline: String?,
     val description: String?,
+    val instruction: String?,
     val response: String?,
     val parameters: Any?
 )
