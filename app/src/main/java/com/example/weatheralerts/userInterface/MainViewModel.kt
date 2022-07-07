@@ -22,11 +22,11 @@ class MainViewModel : ViewModel() {
 
     val nwsData: LiveData<WeatherAlert> = _nwsData
 
-    fun getNwsData() {
+    fun getNwsData(stateIdentifier: String) {
         viewModelScope.launch {
             _status.value = NwsApiStatus.LOADING
             try {
-                _nwsData.value = nwsApi.retrofitService.getData()
+                _nwsData.value = nwsApi.retrofitService.getData(stateIdentifier)
                 _status.value = NwsApiStatus.DONE
             } catch (e: Exception) {
                 println(e)

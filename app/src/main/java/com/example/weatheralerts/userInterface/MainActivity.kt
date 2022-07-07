@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatheralerts.R
 import com.example.weatheralerts.network.WeatherAlert
-import okhttp3.ResponseBody
-import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             statesSpinner.adapter = adapter
         }
 
-        viewModel.getNwsData()
+        statesSpinner.onItemSelectedListener = StatesSpinnerActivity(viewModel, applicationContext)
 
         val observer = Observer<WeatherAlert> {
 

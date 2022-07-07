@@ -5,6 +5,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 private const val BASE_URL = "https://api.weather.gov/"
 
@@ -18,8 +19,8 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface nwsApiService {
-    @GET("alerts/active?area=SD")
-    suspend fun getData(): WeatherAlert
+    @GET("alerts/active")
+    suspend fun getData(@Query("area") stateIdentifier: String): WeatherAlert
 }
 
 object nwsApi {
